@@ -22,4 +22,18 @@ nwi = (B-(NIR+SWIR1+SWIR2))./(B+(NIR+SWIR1+SWIR2)); %ding 2009
 new = (B-SWIR2)./(B+SWIR2); %xiao 2010
 ndwi_b = (B-NIR)./(B+NIR); %qu 
 awei = 4*(G-SWIR1)-((0.25*NIR)+(2.75*SWIR2)); %feyisa 2014
-awei_ns = B + (2.5*G) - 1.5*(NIR+SWIR1)-(0.25*SWIR2); %feyisa 2014
+awei_ns = B + (2.5*G) - 1.5*(NIR+SWIR1)-(0.25*SWIR2); %feyisa 2014,
+
+% lets start with awei 
+I = rgb2gray(awei);
+
+% for(i=0;i<=1830;i++)
+%     for(j=0;i<=1830;j++)
+%         if(awei(i,j)<0)
+%             awei(i,j)==0;
+%         else
+%             awei(i,j)==1;
+%         end
+%     end
+
+
