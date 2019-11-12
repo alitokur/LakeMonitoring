@@ -25,15 +25,18 @@ awei = 4*(G-SWIR1)-((0.25*NIR)+(2.75*SWIR2)); %feyisa 2014
 awei_ns = B + (2.5*G) - 1.5*(NIR+SWIR1)-(0.25*SWIR2); %feyisa 2014,
 
 % lets start with awei 
-I = rgb2gray(awei);
+for i=1:1830
+    for j=1:1830
+        if(awei(i,j)<0)
+            newImage(i,j)=0;
+        else
+            newImage(i,j)=1;
+        end
+        end
+    end
+    
 
-% for(i=0;i<=1830;i++)
-%     for(j=0;i<=1830;j++)
-%         if(awei(i,j)<0)
-%             awei(i,j)==0;
-%         else
-%             awei(i,j)==1;
-%         end
-%     end
+
+
 
 
