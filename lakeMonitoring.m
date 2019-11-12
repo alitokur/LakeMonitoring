@@ -32,8 +32,19 @@ for i=1:1830
         else
             newImage(i,j)=1;
         end
-        end
     end
+end
+
+fid = fopen('dataSet.txt','w+');
+fprintf(fid,'Deneme - m \n\n');
+
+for ii = 1:size(newImage,1)
+    for jj=1:size(newImage,1)
+    fprintf(fid,'%d %d %d \t',ii,jj,newImage(ii,jj));
+    fprintf(fid,'\n');
+    end
+end
+    
     
 
 
