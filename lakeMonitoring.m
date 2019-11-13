@@ -28,19 +28,19 @@ awei_ns = B + (2.5*G) - 1.5*(NIR+SWIR1)-(0.25*SWIR2); %feyisa 2014,
 for i=1:1830
     for j=1:1830
         if(awei(i,j)<0)
-            newImage(i,j)=0;
+            taggedImage(i,j)=0;
         else
-            newImage(i,j)=1;
+            taggedImage(i,j)=1;
         end
     end
 end
 
-fid = fopen('dataSet.txt','w+');
-fprintf(fid,'Deneme - m \n\n');
-
-for ii = 1:size(newImage,1)
-    for jj=1:size(newImage,1)
-    fprintf(fid,'%d %d %d \t',ii,jj,newImage(ii,jj));
+fid = fopen('rgbFeatures.txt','w+');
+% fprintf(fid,'R\t G \t B \t \n\n');
+% 
+for ii = 1:size(TCI,1)
+    for jj=1:size(TCI,1)
+    fprintf(fid,'x : %d y : %d R: %d G: %d B: %d',ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
     fprintf(fid,'\n');
     end
 end
