@@ -35,17 +35,54 @@ for i=1:1830
     end
 end
 
-fid = fopen('rgbFeatures.txt','w+');
-% fprintf(fid,'R\t G \t B \t \n\n');
-% 
+%to write the classes to file.
+
+f1 = fopen('rgbFeaturesForWater.txt','w+');
+f2 = fopen('rgbFeaturesForLand.txt','w+');
+
+
 for ii = 1:size(TCI,1)
     for jj=1:size(TCI,1)
-    fprintf(fid,'x : %d y : %d R: %d G: %d B: %d',ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
-    fprintf(fid,'\n');
+        if (taggedImage(ii,jj)==1)
+        fprintf(f1,'x : %d y : %d R: %d G: %d B: %d',ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
+        fprintf(f1,'\n');
+        else
+        fprintf(f2,'x : %d y : %d R: %d G: %d B: %d',ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
+        fprintf(f2,'\n');
+        end
     end
 end
-    
-    
+fclose(f1);
+fclose(f2);
+
+
+
+
+
+
+% 
+% data1 = zeros(100,2);
+% data2 = zeros(100,2);
+% %preparing the train dataset
+% rng(1); % For reproducibility
+% x = randi([1 1830],100,1); %x
+% y = randi([1 1830],100,1); %y
+% 
+% for ii= 1:100
+% data1(ii,1) = TCI(x(ii),y(ii),1);
+% data1(ii,2) = TCI(x(ii),y(ii),2);
+% end
+% 
+% x2 = randi([1 1830],100,1); %x
+% y2 = randi([1 1830],100,1); %y
+% 
+% for ii= 1:100
+% data2(ii,1) = TCI(x(ii),y(ii),1);
+% data2(ii,2) = TCI(x(ii),y(ii),2);
+% end
+
+
+     
 
 
 
