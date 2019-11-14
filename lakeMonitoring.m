@@ -37,49 +37,58 @@ end
 
 %to write the classes to file.
 
-f1 = fopen('rgbFeaturesForWater.txt','w+');
-f2 = fopen('rgbFeaturesForLand.txt','w+');
+% f1 = fopen('rgbFeaturesForWater.txt','w+');
+% f2 = fopen('rgbFeaturesForLand.txt','w+');
+% fprintf(f1,'# x     y   R   G  B');
 
+% counter_1=0;
+% counter_2=0;
+% for ii = 1:size(TCI,1)
+%     for jj=1:size(TCI,1)
+%         if (taggedImage(ii,jj)==1)
+%         fprintf(f1,'%d %d %d %d %d %d',counter_1,ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
+%         fprintf(f1,'\n');
+%         counter_1 = counter_1+1;
+%         else
+%         fprintf(f2,'%d %d %d %d %d %d',counter_2,ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
+%         fprintf(f2,'\n');
+%         counter_2 = counter_2+1;
+%         end
+%     end
+% end
+% fclose(f1);
+% fclose(f2);
 
-for ii = 1:size(TCI,1)
-    for jj=1:size(TCI,1)
-        if (taggedImage(ii,jj)==1)
-        fprintf(f1,'x : %d y : %d R: %d G: %d B: %d',ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
-        fprintf(f1,'\n');
-        else
-        fprintf(f2,'x : %d y : %d R: %d G: %d B: %d',ii,jj,TCI(ii,jj,1),TCI(ii,jj,2),TCI(ii,jj,3));
-        fprintf(f2,'\n');
-        end
-    end
-end
-fclose(f1);
-fclose(f2);
+%preparing the train dataset
+ data1 = zeros(100,2);
+ data2 = zeros(100,2);
 
+file_1 = fopen('trainDataForLand.txt','r');
+formatSpec = '%d %d %d %d %d %d';
+sizeA = [6 100];
+A = fscanf(file_1,formatSpec,sizeA);
+A=A';
 
+file_2 = fopen('trainDataForWater.txt','r');
+formatSpec = '%d %d %d %d %d %d';
+sizeB = [6 100];
+B = fscanf(file_2,formatSpec,sizeB);
+B=B';
 
-
-
-
-% 
-% data1 = zeros(100,2);
-% data2 = zeros(100,2);
-% %preparing the train dataset
 % rng(1); % For reproducibility
-% x = randi([1 1830],100,1); %x
-% y = randi([1 1830],100,1); %y
+% x = randi([1 2799648],100,1); %x
+% y = randi([1 549250],100,1); %y
 % 
-% for ii= 1:100
-% data1(ii,1) = TCI(x(ii),y(ii),1);
-% data1(ii,2) = TCI(x(ii),y(ii),2);
-% end
-% 
-% x2 = randi([1 1830],100,1); %x
-% y2 = randi([1 1830],100,1); %y
-% 
-% for ii= 1:100
-% data2(ii,1) = TCI(x(ii),y(ii),1);
-% data2(ii,2) = TCI(x(ii),y(ii),2);
-% end
+
+for ii= 1:100
+data1(ii,1) = A(ii,5);
+data1(ii,2) = A(ii,6);
+end
+
+ for ii= 1:100
+data2(ii,1) = B(ii,5);
+data2(ii,2) = B(ii,6);
+end
 
 
      
