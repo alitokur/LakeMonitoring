@@ -1,65 +1,62 @@
-y = table2array(class);
-X = table2array(features);
+%%final
 %%
+file_1 = fopen('features.txt','r');
+formatSpec = '%d %d %d';
+sizeA = [3 600];
+A = fscanf(file_1,formatSpec,sizeA);
+A=A';
+%%
+file_2 = fopen('class.txt','r');
+formatSpec = '%d %d %d';
+sizeB = [1 600];
+B = fscanf(file_2,formatSpec,sizeB);
+B=B';
 
+file_3 = fopen('mark.txt','r');
+formatSpec = '%d %d %d';
+sizeC = [3 3348900];
+C = fscanf(file_3,formatSpec,sizeC);
+C=C';
+
+X = A;
+y = B;
+%%
 %80 : %20
-rand_num = randperm(100);
-X_train = X(rand_num(1:80),:);
-y_train = y(rand_num(1:80),:);
+rand_num = randperm(600);
+X_train = X(rand_num(1:480),:);
+y_train = y(rand_num(1:480),:);
 
-X_test = X(rand_num(81:end),:);
-y_test = y(rand_num(81:end),:);
+X_test = X(rand_num(481:end),:);
+y_test = y(rand_num(481:end),:);
 
-%% CV partition
- c = cvpartition(y_train,'k',5);
-
-%%feature selection
-% opts = statset('display','iter');
-% fun = @(train_data,train_labels,test_data, test_labels)...
-%     sum(predict(fitcsvm(train_data,train_labels,'KernelFunciton','rbf'),test_data ~=test_labels);
-% 
-% [fs,history] = sequentialfs(fun, X_train, y_train,'cv'.c, 'options'.opts,'nfeatures',2);
-
-opts = statset('display','iter');
-classf = @(train_data, train_labels, test_data, test_labels)...
-    sum(predict(fitcsvm(train_data, train_labels,'KernelFunction','rbf'), test_data) ~= test_labels);
-
-[fs, history] = sequentialfs(classf, X_train, y_train, 'cv', c, 'options', opts,'nfeatures',2);
 %%
-X_train_w_best_feature = X_train(:,fs);
+c = cvpartition(y_train,'k',5);
 
-Md1 = fitcsvm(X_train_w_best_feature,y_train,'KernelFunction','rbf','OptimizeHyperparameters','auto',...
+%%
+Md1 = fitcsvm(X_train,y_train,'KernelFunction','rbf','OptimizeHyperparameters','auto',...
       'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName',...
       'expected-improvement-plus','ShowPlots',true));
-  
-%%testing
-X_test_w_best_feature = X_test(:,fs);
-test_accuracy_for_iter = sum((predict(Md1,X_test_w_best_feature) == y_test))/length(y_test)*100; 
+%%  
+test_accuracy_for_iter = sum((predict(Md1,X_test) == y_test))/length(y_test)*100; 
 
 %%
-figure;
-hgscatter = gscatter(X_train_w_best_feature(:,1),X_train_w_best_feature(:,2),y_train);
-hold on;
-h_sv=plot(Md1.SupportVectors(:,1),Md1.SupportVectors(:,2),'ko','markersize',8);
-
-%% test set.
-
-gscatter(X_test_w_best_feature(:,1),X_test_w_best_feature(:,2),y_test,'rb','xx')
-
+% figure;
+% hgscatter = gscatter(X_train(:,1),X_train(:,2),y_train);
+% hold on;
+% h_sv=plot(Md1.SupportVectors(:,1),Md1.SupportVectors(:,2),'ko','markersize',7-4);
 
 %%
-% XLIMs = get(gca,'xlim');
-% YLIMs = get(gca,'ylim');
-% [xi,yi] = meshgrid([XLIMs(1):0.01:XLIMs(2)],[YLIMs(1):0.01:YLIMs(2)]);
-% dd = [xi(:), yi(:)];
-% pred_mesh = predict(Md1, dd);
-% redcolor = [1, 0.8, 0.8];
-% bluecolor = [0.8, 0.8, 1];
-% pos = find(pred_mesh == 1);
-% h1 = plot(dd(pos,1), dd(pos,2),'s','color',redcolor,'Markersize',5,'MarkerEdgeColor',redcolor,'MarkerFaceColor',redcolor);
-% pos = find(pred_mesh == 2);
-% h2 = plot(dd(pos,1), dd(pos,2),'s','color',bluecolor,'Markersize',5,'MarkerEdgeColor',bluecolor,'MarkerFaceColor',bluecolor);
-% uistack(h1,'bottom');
-% uistack(h2,'bottom');
-% legend([hgscatter;h_sv],{'setosa','versicolor','support vectors'})
+% gscatter(X_test,X_test,y_test,'rb','xx')
+%%
+allPixelValue=predict(Md1,C);
+ColumnMatrix = vec2mat(allPixelValue,1830);
+for i=1:1830
+    for j=1:1830
+        if(ColumnMatrix(i,j)==1)
+            newTaggedImage(i,j)=1;
+        else
+            newTaggedImage(i,j)=0;
+        end
+    end
+end
 
