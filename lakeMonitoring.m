@@ -4,13 +4,13 @@
 %%
 
 % Testing the indexes & Preparing the Dataset
-TCI = imread("T33PVQ_20190728T092031_TCI_20m.jp2");
+TCI = imread("T33PVQ_20190723T092039_TCI_60m.jp2");
 % B = double(imread("T33PVQ_20190728T092031_B02_20m.jp2"));
-G = double(imread("T33PVQ_20190728T092031_B03_20m.jp2"));
+G = double(imread("T33PVQ_20190723T092039_B03_60m.jp2"));
 % R = double(imread("T33PVQ_20190728T092031_B04_20m.jp2"));
-NIR = double(imread("T33PVQ_20190728T092031_B8A_20m.jp2"));
-SWIR1 = double(imread("T33PVQ_20190728T092031_B11_20m.jp2")); 
-SWIR2 = double(imread("T33PVQ_20190728T092031_B12_20m.jp2"));
+NIR = double(imread("T33PVQ_20190723T092039_B8A_60m.jp2"));
+SWIR1 = double(imread("T33PVQ_20190723T092039_B11_60m.jp2")); 
+SWIR2 = double(imread("T33PVQ_20190723T092039_B12_60m.jp2"));
 
 %% first index method
 % ndvi = (NIR-R)./(NIR+R); 
@@ -31,12 +31,12 @@ prompt = 'Pixel araligini belirtin ?';
 x = input(prompt);
 
 %%
-y= 5490/x;
+y= 1830/x;
 taggedImage = zeros(y,y);
 foo=1;
 bar=1;
-for i=x:x:5490
-    for j=x:x:5490
+for i=x:x:1830
+    for j=x:x:1830
         if(awei(i,j)<0)
             taggedImage(foo,bar)=0;
         else
@@ -94,18 +94,18 @@ Land = fscanf(file_2,formatSpec,sizeLand);
 Land=Land';
 
 %%
-firstrth=(1:37218);
-waterNew = Water(firstrth(1:37218),:);
-Rth = 2:2:37218;
-waterNew = waterNew(Rth(1:18600),:);
+firstrth=(1:4600);
+waterNew = Water(firstrth(1:4600),:);
+% Rth = 2:2:37218;
+% waterNew = waterNew(Rth(1:18600),:);
 
 %%
-firstrth=(1:264180);
-landNew = Land(firstrth(1:264180),:);
-Rth = 14:14:264180;
-landNew = Land(Rth(1:18870),:);
-rand_n = randperm(18600);
-landNew = landNew(rand_n(1:18600),:);
+firstrth=(1:28880);
+landNew = Land(firstrth(1:28880),:);
+Rth = 5:5:28880;
+landNew = Land(Rth(1:5776),:);
+rand_n = randperm(4600);
+landNew = landNew(rand_n(1:4600),:);
 
 %%
 fid = fopen('features.txt','wt');
