@@ -4,27 +4,27 @@
 %%
 
 % Testing the indexes & Preparing the Dataset
-TCI = imread("T33PVQ_20190723T092039_TCI_60m.jp2");
-% B = double(imread("T33PVQ_20190728T092031_B02_20m.jp2"));
-G = double(imread("T33PVQ_20190723T092039_B03_60m.jp2"));
-% R = double(imread("T33PVQ_20190728T092031_B04_20m.jp2"));
-NIR = double(imread("T33PVQ_20190723T092039_B8A_60m.jp2"));
-SWIR1 = double(imread("T33PVQ_20190723T092039_B11_60m.jp2")); 
-SWIR2 = double(imread("T33PVQ_20190723T092039_B12_60m.jp2"));
+TCI = imread("T31PFM_20191207T100411_TCI_60m.jp2");
+B = double(imread("T31PFM_20191207T100411_B02_60m.jp2"));
+G = double(imread("T31PFM_20191207T100411_B03_60m.jp2"));
+R = double(imread("T31PFM_20191207T100411_B04_60m.jp2"));
+NIR = double(imread("T31PFM_20191207T100411_B8A_60m.jp2"));
+SWIR1 = double(imread("T31PFM_20191207T100411_B11_60m.jp2")); 
+SWIR2 = double(imread("T31PFM_20191207T100411_B12_60m.jp2"));
 
 %% first index method
-% ndvi = (NIR-R)./(NIR+R); 
-% ndvi_gao = (NIR-SWIR1)./(NIR+SWIR1); %gao 1995
-% ndwi = (G-NIR)./(G+NIR); %mc feeters 1996
-% ndwi_2 = (R-SWIR1)./(R+SWIR1); % rogers and kearney 2004
-% mndwi = (G-SWIR1)./ (G+SWIR1); % hanqiu xu 2006
-% ndpi = (SWIR1-G)./(SWIR1+G); % lacaux 2007
-% ewi = (G-NIR-SWIR1)./(G+NIR+SWIR1); %yan 2007
-% nwi = (B-(NIR+SWIR1+SWIR2))./(B+(NIR+SWIR1+SWIR2)); %ding 2009
-% new = (B-SWIR2)./(B+SWIR2); %xiao 2010
-% ndwi_b = (B-NIR)./(B+NIR); %qu 
+ndvi = (NIR-R)./(NIR+R); 
+ndvi_gao = (NIR-SWIR1)./(NIR+SWIR1); %gao 1995
+ndwi = (G-NIR)./(G+NIR); %mc feeters 1996
+ndwi_2 = (R-SWIR1)./(R+SWIR1); % rogers and kearney 2004
+mndwi = (G-SWIR1)./ (G+SWIR1); % hanqiu xu 2006
+ndpi = (SWIR1-G)./(SWIR1+G); % lacaux 2007
+ewi = (G-NIR-SWIR1)./(G+NIR+SWIR1); %yan 2007
+nwi = (B-(NIR+SWIR1+SWIR2))./(B+(NIR+SWIR1+SWIR2)); %ding 2009
+new = (B-SWIR2)./(B+SWIR2); %xiao 2010
+ndwi_b = (B-NIR)./(B+NIR); %qu 
 awei = 4*(G-SWIR1)-((0.25*NIR)+(2.75*SWIR2)); %feyisa 2014
-% awei_ns = B + (2.5*G) - 1.5*(NIR+SWIR1)-(0.25*SWIR2); %feyisa 2014,
+awei_ns = B + (2.5*G) - 1.5*(NIR+SWIR1)-(0.25*SWIR2); %feyisa 2014,
 % imgGauss = imgaussfilt(awei,2);
 %% lets start with awei 
 prompt = 'Pixel araligini belirtin ?';
@@ -94,18 +94,18 @@ Land = fscanf(file_2,formatSpec,sizeLand);
 Land=Land';
 
 %%
-firstrth=(1:4600);
-waterNew = Water(firstrth(1:4600),:);
+firstrth=(1:3250);
+waterNew = Water(firstrth(1:3250),:);
 % Rth = 2:2:37218;
 % waterNew = waterNew(Rth(1:18600),:);
 
 %%
-firstrth=(1:28880);
-landNew = Land(firstrth(1:28880),:);
-Rth = 5:5:28880;
-landNew = Land(Rth(1:5776),:);
-rand_n = randperm(4600);
-landNew = landNew(rand_n(1:4600),:);
+firstrth=(1:3300);
+landNew = Land(firstrth(1:3300),:);
+Rth = 5:5:3300;
+landNew = Land(Rth(1:660),:);
+rand_n = randperm(360);
+landNew = landNew(rand_n(1:360),:);
 
 %%
 fid = fopen('features.txt','wt');

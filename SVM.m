@@ -2,13 +2,13 @@
 %%
 file_1 = fopen('features.txt','r');
 formatSpec = '%d %d %d';
-sizeA = [3 9200];
+sizeA = [3 (size(waterNew,1)*2)];
 A = fscanf(file_1,formatSpec,sizeA);
 A=A';
 %%
 file_2 = fopen('allClass.txt','r');
 formatSpec = '%d %d %d';
-sizeB = [1 9200];
+sizeB = [1 (size(waterNew,1)*2)];
 B = fscanf(file_2,formatSpec,sizeB);
 B=B';
 
@@ -27,12 +27,12 @@ X = A;
 y = B;
 %%
 %90 : %10
-rand_num = randperm(9200);
-X_train = X(rand_num(1:8000),:);
-y_train = y(rand_num(1:8000),:);
+rand_num = randperm(720);
+X_train = X(rand_num(1:600),:);
+y_train = y(rand_num(1:600),:);
 
-X_test = X(rand_num(8001:end),:);
-y_test = y(rand_num(8001:end),:);
+X_test = X(rand_num(601:end),:);
+y_test = y(rand_num(601:end),:);
 
 %%
 c = cvpartition(y_train,'k',5);
