@@ -5,12 +5,27 @@
 
 % Testing the indexes & Preparing the Dataset
 TCI = imread("T31PFM_20191207T100411_TCI_60m.jp2");
-B = double(imread("T31PFM_20191207T100411_B02_60m.jp2"));
-G = double(imread("T31PFM_20191207T100411_B03_60m.jp2"));
-R = double(imread("T31PFM_20191207T100411_B04_60m.jp2"));
-NIR = double(imread("T31PFM_20191207T100411_B8A_60m.jp2"));
-SWIR1 = double(imread("T31PFM_20191207T100411_B11_60m.jp2")); 
-SWIR2 = double(imread("T31PFM_20191207T100411_B12_60m.jp2"));
+B=imread("T31PFM_20191207T100411_B02_60m.jp2");
+G=imread("T31PFM_20191207T100411_B03_60m.jp2");
+R=imread("T31PFM_20191207T100411_B04_60m.jp2");
+NIR=imread("T31PFM_20191207T100411_B8A_60m.jp2");
+SWIR1=imread("T31PFM_20191207T100411_B11_60m.jp2");
+SWIR2=imread("T31PFM_20191207T100411_B12_60m.jp2");
+
+B2 = double(B);
+G2 = double(G);
+R2 = double(R);
+NIR2 = double(NIR);
+SWIR12 = double(SWIR1); 
+SWIR22 = double(SWIR2);
+
+% figure; imshow(TCI);
+% figure; imshow(B);
+% figure; imshow(G);
+% figure; imshow(R);
+% figure; imshow(NIR);
+% figure; imshow(SWIR1);
+% figure; imshow(SWIR2);
 
 %% first index method
 ndvi = (NIR-R)./(NIR+R); 
@@ -98,14 +113,16 @@ firstrth=(1:3250);
 waterNew = Water(firstrth(1:3250),:);
 % Rth = 2:2:37218;
 % waterNew = waterNew(Rth(1:18600),:);
+rand_n = randperm(3000);
+waterNew = waterNew(rand_n(1:3000),:);
 
 %%
-firstrth=(1:3300);
-landNew = Land(firstrth(1:3300),:);
-Rth = 5:5:3300;
-landNew = Land(Rth(1:660),:);
-rand_n = randperm(360);
-landNew = landNew(rand_n(1:360),:);
+firstrth=(1:30230);
+landNew = Land(firstrth(1:30230),:);
+Rth = 10:10:30230;
+landNew = Land(Rth(1:3023),:);
+rand_n = randperm(3000);
+landNew = landNew(rand_n(1:3000),:);
 
 %%
 fid = fopen('features.txt','wt');
