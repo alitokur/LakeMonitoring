@@ -124,20 +124,20 @@ Land = fscanf(file_2,formatSpec,sizeLand);
 Land=Land';
 
 %%
-firstrth=(1:80700);
-waterNew = Water(firstrth(1:80700),:);
+firstrth=(1:360);
+waterNew = Water(firstrth(1:360),:);
 % Rth = 2:2:37218;
 % waterNew = waterNew(Rth(1:18600),:);
-rand_n = randperm(75647);
-waterNew = waterNew(rand_n(1:75647),:);
+rand_n = randperm(300);
+waterNew = waterNew(rand_n(1:300),:);
 
 %%
-% firstrth=(1:3300);
-% landNew = Land(firstrth(1:3300),:);
-Rth = 10:10:756470;
-landNew = Land(Rth(1:75647),:);
-% rand_n = randperm(300);
-% landNew = landNew(rand_n(1:300),:);
+firstrth=(1:3300);
+landNew = Land(firstrth(1:3300),:);
+Rth = 10:10:30230;
+landNew = Land(Rth(1:3023),:);
+rand_n = randperm(3000);
+landNew = landNew(rand_n(1:3000),:);
 
 %%
 fid = fopen('features.txt','wt');
@@ -158,7 +158,7 @@ fclose(fid);
 
 f3 = fopen('allClass.txt','w+');
 
-for i=1:(size(waterNew,1)+size(landNew,1))
+for i=1:(size(waterNew,1)*2)
     if (i<=size(waterNew,1))
         fprintf(f3,'1');
         fprintf(f3,'\n');

@@ -9,24 +9,22 @@ end
 fclose(f5);
 
 %%
-f5 = fopen('allResults.txt','w+');
 
-
-for ii = 1:1:size(TCI,1)
-    for jj=1:1:size(TCI,1)
-        if (awei(ii,jj)==1)
-        fprintf(f5,'1');
-        fprintf(f5,'\n');
+taggedImage2 = zeros(1830,1830);
+foo=1;
+bar=1;
+for i=1:1:1830
+    for j=1:1:1830
+        if(awei(i,j)<0)
+            taggedImage(foo,bar)=0;
         else
-        fprintf(f5,'2');
-        fprintf(f5,'\n');
+            taggedImage(foo,bar)=1;
         end
+        bar=bar+1;
     end
-   
- end
-fclose(f5);
-
-
+    foo=foo+1;
+    bar=1;
+end
 
 % f3 = fopen('allClass.txt','w+');
 % 
