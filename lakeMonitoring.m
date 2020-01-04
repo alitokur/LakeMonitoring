@@ -41,18 +41,18 @@ ndwi_b = (B2-NIR2)./(B2+NIR2); %qu
 awei = 4*(G2-SWIR12)-((0.25*NIR2)+(2.75*SWIR22)); %feyisa 2014
 awei_ns = B2 + (2.5*G2) - 1.5*(NIR2+SWIR12)-(0.25*SWIR22); %feyisa 2014,
 
-figure('Name','ndvi'); imshow(ndvi);
-figure('Name','ndvi_gao'); imshow(ndvi_gao);
-figure('Name','ndwi'); imshow(ndwi);
-figure('Name','ndvi_2'); imshow(ndwi_2);
-figure('Name','mndwi'); imshow(mndwi);
-figure('Name','ndpi'); imshow(ndpi);
-figure('Name','ewi'); imshow(ewi);
-figure('Name','nwi'); imshow(nwi);
-figure('Name','new'); imshow(new);
-figure('Name','ndvi_b'); imshow(ndwi_b);
-figure('Name','awei'); imshow(awei);
-figure('Name','awei_ns'); imshow(awei_ns);
+% figure('Name','ndvi'); imshow(ndvi);
+% figure('Name','ndvi_gao'); imshow(ndvi_gao);
+% figure('Name','ndwi'); imshow(ndwi);
+% figure('Name','ndvi_2'); imshow(ndwi_2);
+% figure('Name','mndwi'); imshow(mndwi);
+% figure('Name','ndpi'); imshow(ndpi);
+% figure('Name','ewi'); imshow(ewi);
+% figure('Name','nwi'); imshow(nwi);
+% figure('Name','new'); imshow(new);
+% figure('Name','ndvi_b'); imshow(ndwi_b);
+% figure('Name','awei'); imshow(awei);
+% figure('Name','awei_ns'); imshow(awei_ns);
 
 
 % imgGauss = imgaussfilt(awei,2);
@@ -124,30 +124,31 @@ Land = fscanf(file_2,formatSpec,sizeLand);
 Land=Land';
 
 %%
-firstrth=(1:80700);
-waterNew = Water(firstrth(1:80700),:);
+firstrth=(1:80750);
+waterNew = Water(firstrth(1:80750),:);
 % Rth = 2:2:37218;
 % waterNew = waterNew(Rth(1:18600),:);
-rand_n = randperm(75647);
-waterNew = waterNew(rand_n(1:75647),:);
+% rand_n = randperm(75647);
+% waterNew = waterNew(rand_n(1:75647),:);
 
 %%
-% firstrth=(1:3300);
-% landNew = Land(firstrth(1:3300),:);
-Rth = 10:10:756470;
-landNew = Land(Rth(1:75647),:);
-% rand_n = randperm(300);
-% landNew = landNew(rand_n(1:300),:);
+% firstrth=(1:30232);
+% landNew = Land(firstrth(1:30232),:);
+Rth = 5:5:756470;
+landNew = Land(Rth(1:151294),:);
+rand_n = randperm(80750);
+landNew = landNew(rand_n(1:80750),:);
 
 %%
 fid = fopen('features.txt','wt');
+fprintf(fid,'R G B \n');
 for ii = 1:size(waterNew,1)
-    fprintf(fid,'%g\t',waterNew(ii,:));
+    fprintf(fid,'%g ',waterNew(ii,:));
     fprintf(fid,'\n');
 end
 
 for ii = 1:size(landNew,1)
-    fprintf(fid,'%g\t',landNew(ii,:));
+    fprintf(fid,'%g ',landNew(ii,:));
     fprintf(fid,'\n');
 end
 
@@ -157,19 +158,39 @@ fclose(fid);
 %%
 
 f3 = fopen('allClass.txt','w+');
-
+fprintf(f3,'Class\n');
 for i=1:(size(waterNew,1)+size(landNew,1))
     if (i<=size(waterNew,1))
-        fprintf(f3,'1');
+        fprintf(f3,'Water');
         fprintf(f3,'\n');
         
     else
-        fprintf(f3,'2');
+        fprintf(f3,'Land');
         fprintf(f3,'\n');
         
     end
 end
 fclose(f3);
+%%
+% fid = fopen('allClass.txt');
+% data = textscan(fid,'%s');
+% fclose(fid);
+%%
+class = readtable('allClass.txt');
+%%
+features = readtable('features.txt');
+%%
+T = [features class];
+%%
+writetable(T,'data.txt');
+
+
+% %%
+% rgbFeatures = [A data];
+% rgbFeatures = array2table(rgbFeatures);
+% %%
+% writetable(rgbFeatures,'myData.txt','Delimiter',' ');  
+% type 'myData.txt';
 
 %%
 % f4 = fopen('allClass.txt','r');

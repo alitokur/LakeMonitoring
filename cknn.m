@@ -11,6 +11,7 @@ B = fscanf(file_2,formatSpec,sizeB);
 B=B';
 
 C = [A B];
+
 T = array2table(C);
 
 %%

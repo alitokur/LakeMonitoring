@@ -15,10 +15,10 @@ f5 = fopen('allResults.txt','w+');
 for ii = 1:1:size(TCI,1)
     for jj=1:1:size(TCI,1)
         if (awei(ii,jj)==1)
-        fprintf(f5,'1');
+        fprintf(f5,'Water');
         fprintf(f5,'\n');
         else
-        fprintf(f5,'2');
+        fprintf(f5,'Land');
         fprintf(f5,'\n');
         end
     end

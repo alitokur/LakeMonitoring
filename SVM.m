@@ -7,10 +7,10 @@ A = fscanf(file_1,formatSpec,sizeA);
 A=A';
 %%
 file_2 = fopen('allClass.txt','r');
-formatSpec = '%d';
+formatSpec = '%g';
 sizeB = [1 (size(waterNew,1)+size(landNew,1))];
 B = fscanf(file_2,formatSpec,sizeB);
-B=B';
+% B=B';
 
 
 %%
