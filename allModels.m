@@ -17,6 +17,11 @@ C = table2cell(C);
 [cosineKNNFit, cosineKnnAC,img_9] = predictionForModel(cosineKNN,M,C); %%not completed
 [cubicKNNFit, cubicKnnAC,img_10] = predictionForModel(cubicKNN,M,C);
 [weightedKNNFit, weightedKNNAC,img_11] = predictionForModel(weightedKNN,M,C);
+%% Trees
+[fineTreeFit, fineTreeAC,img_12] = predictionForModel(fineTree,M,C);
+[mediumTree, mediumTreeAC,img_13] = predictionForModel(mediumTree,M,C);
+[coarseTree, coarseTreeAC,img_14] = predictionForModel(coarseTree,M,C);
+
 
 
 
