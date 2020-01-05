@@ -22,6 +22,12 @@ C = table2cell(C);
 [mediumTree, mediumTreeAC,img_13] = predictionForModel(mediumTree,M,C);
 [coarseTree, coarseTreeAC,img_14] = predictionForModel(coarseTree,M,C);
 
+%% Discriminant
+[linearDiscriminantFit, linearDiscriminantAC,img_15] = predictionForModel(linearDiscriminant,M,C);
+[quadraticDiscriminantFit, quadraticDiscriminantAC,img_16] = predictionForModel(quadraticDiscriminant,M,C);
+
+%%
+
 
 
 
